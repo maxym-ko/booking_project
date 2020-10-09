@@ -11,8 +11,6 @@ public class Room {
 
     private int capacity;
     private double price;
-    private LocalDate checkInDate;
-    private LocalDate checkOutDate;
 
     @Enumerated(EnumType.STRING)
     private RoomType type;
