@@ -1,8 +1,13 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/login.ftlh" as l>
 
-<@c.page "Info">
+<@c.page "Main">
+    <div>
+        <a href="/login">Login</a>
+        <@l.logout />
+    </div>
+
     <h3>Rooms: </h3>
-
     <#list rooms as room>
         <#if room.status == "VACANT">
             <div>
