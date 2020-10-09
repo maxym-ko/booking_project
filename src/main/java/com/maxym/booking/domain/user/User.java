@@ -1,11 +1,13 @@
 package com.maxym.booking.domain.user;
 
+import com.maxym.booking.domain.application.Application;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -19,6 +21,9 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Application> applications;
 
     public long getId() {
         return id;
@@ -75,5 +80,13 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 }

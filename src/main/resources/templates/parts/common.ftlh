@@ -14,7 +14,10 @@
         <title>${title}</title>
     </head>
     <body>
-    <#nested>
+    <#include "navbar.ftlh">
+    <div class="container mt-5">
+        <#nested>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

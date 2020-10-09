@@ -18,6 +18,8 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
 
+    private String imgName;
+
     public long getId() {
         return id;
     }
@@ -56,5 +58,13 @@ public class Room {
 
     public void setStatus(RoomStatus status) {
         this.status = status;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 }
