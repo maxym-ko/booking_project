@@ -1,14 +1,13 @@
 package com.maxym.booking.domain.room;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     private int capacity;
     private double price;
@@ -21,11 +20,11 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -43,22 +42,6 @@ public class Room {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public LocalDate getCheckInDate() {
-        return checkInDate;
-    }
-
-    public void setCheckInDate(LocalDate checkInDate) {
-        this.checkInDate = checkInDate;
-    }
-
-    public LocalDate getCheckOutDate() {
-        return checkOutDate;
-    }
-
-    public void setCheckOutDate(LocalDate checkOutDate) {
-        this.checkOutDate = checkOutDate;
     }
 
     public RoomType getType() {
