@@ -1,6 +1,7 @@
 package com.maxym.booking.controller;
 
 import com.maxym.booking.domain.application.Application;
+import com.maxym.booking.domain.application.ApplicationStatus;
 import com.maxym.booking.domain.application.Bill;
 import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.room.RoomStatus;
@@ -36,7 +37,7 @@ public class RoomController {
         Optional<Room> roomOptional = roomService.findRoomById(roomId);
         // todo: handle if isn't present
         if (!roomOptional.isPresent()) {
-            return "/error";
+            return "redirect:/error";
         }
 
         Room room = roomOptional.get();
@@ -48,6 +49,7 @@ public class RoomController {
         application.setBill(bill);
         application.setOwner(user);
         application.setRoom(room);
+        application.setStatus(ApplicationStatus.BOOKED);
         applicationService.saveApplicant(application);
 
         return "redirect:/applications";

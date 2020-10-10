@@ -3,11 +3,11 @@
 
 <@c.page "Main">
     <#if role == "ADMIN">
-        <a class="btn btn-primary mb-3" data-toggle="collapse" href="#collapseId" role="button" aria-expanded="false"
+        <a class="btn btn-primary mb-3" data-toggle="collapse" href="#addNewRoomId" role="button" aria-expanded="false"
            aria-controls="collapseExample">
             Add new room
         </a>
-        <div class="collapse" id="collapseId">
+        <div class="collapse" id="addNewRoomId">
             <div class="form-group">
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-row">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-success" type="submit">Add</button>
                     </div>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                 </form>
@@ -96,7 +96,7 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                     Close
                                                 </button>
-                                                <button type="submit" class="btn btn-primary">Book</button>
+                                                <button type="submit" class="btn btn-success">Book</button>
                                             </div>
                                         </div>
                                         <input type="hidden" name="id" value="${room.id}">
@@ -106,8 +106,8 @@
                             </div>
                         </#if>
                         <#if role == "ADMIN">
-                            <a href="#" class="btn btn-primary">Change</a>
-                            <a href="#" class="btn btn-primary">Remove</a>
+                            <a href="#" class="btn btn-secondary">Change</a>
+                            <a href="#" class="btn btn-danger">Remove</a>
                         </#if>
                     </div>
                 </div>

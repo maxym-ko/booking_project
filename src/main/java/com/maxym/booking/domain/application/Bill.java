@@ -1,5 +1,7 @@
 package com.maxym.booking.domain.application;
 
+import com.maxym.booking.domain.room.Room;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -21,8 +23,6 @@ public class Bill {
         created = LocalDateTime.now();
 
         long days = Duration.between(start.atStartOfDay(), end.atStartOfDay()).toDays();
-
-        System.out.println(days);
 
         double totalPrice = price * days;
         this.totalPrice = totalPrice;

@@ -1,6 +1,7 @@
 package com.maxym.booking.domain.application;
 
 import com.maxym.booking.domain.room.Room;
+import com.maxym.booking.domain.room.RoomType;
 import com.maxym.booking.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,22 +15,26 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //    @Enumerated(EnumType.STRING)
-//    private ApplicationStatus status;
+    private int requirementCapacity;
+    private RoomType requirementType;
+
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Bill bill;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Room room;
 
     public long getId() {
@@ -38,6 +43,30 @@ public class Application {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getRequirementCapacity() {
+        return requirementCapacity;
+    }
+
+    public void setRequirementCapacity(int requirementCapacity) {
+        this.requirementCapacity = requirementCapacity;
+    }
+
+    public RoomType getRequirementType() {
+        return requirementType;
+    }
+
+    public void setRequirementType(RoomType requirementType) {
+        this.requirementType = requirementType;
+    }
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
     }
 
     public LocalDate getCheckInDate() {

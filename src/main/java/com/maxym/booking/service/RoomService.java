@@ -16,15 +16,15 @@ public class RoomService {
         this.roomRepo = roomRepo;
     }
 
+    public void saveRoom(Room room) {
+        roomRepo.save(room);
+    }
+
     public List<Room> findAllRooms() {
         return roomRepo.findAll();
     }
 
     public Optional<Room> findRoomById(long id) {
         return roomRepo.findById(id);
-    }
-
-    public void saveRoom(Room room) {
-        roomRepo.save(room);
     }
 }
