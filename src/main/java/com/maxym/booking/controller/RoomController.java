@@ -3,6 +3,7 @@ package com.maxym.booking.controller;
 import com.maxym.booking.domain.application.Application;
 import com.maxym.booking.domain.application.Bill;
 import com.maxym.booking.domain.room.Room;
+import com.maxym.booking.domain.room.RoomStatus;
 import com.maxym.booking.domain.user.User;
 import com.maxym.booking.service.ApplicationService;
 import com.maxym.booking.service.BillService;
@@ -39,6 +40,7 @@ public class RoomController {
         }
 
         Room room = roomOptional.get();
+        room.setStatus(RoomStatus.BOOKED);
 
         Bill bill = new Bill(application.getCheckInDate(), application.getCheckOutDate(), room.getPrice());
         billService.saveBill(bill);
