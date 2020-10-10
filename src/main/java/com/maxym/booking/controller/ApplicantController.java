@@ -2,9 +2,11 @@ package com.maxym.booking.controller;
 
 import com.maxym.booking.domain.application.Application;
 import com.maxym.booking.domain.application.ApplicationStatus;
+import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.room.RoomType;
 import com.maxym.booking.domain.user.User;
 import com.maxym.booking.service.ApplicationService;
+import com.maxym.booking.service.RoomService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,9 +23,11 @@ import java.util.List;
 @PreAuthorize("hasAuthority('USER')")
 public class ApplicantController {
     private final ApplicationService applicationService;
+    private final RoomService roomService;
 
-    public ApplicantController(ApplicationService applicationService) {
+    public ApplicantController(ApplicationService applicationService, RoomService roomService) {
         this.applicationService = applicationService;
+        this.roomService = roomService;
     }
 
     @GetMapping("/applications")
@@ -58,5 +62,16 @@ public class ApplicantController {
         applicationService.deleteApplicationByIdIfExists(id);
 
         return "redirect:/applications";
+    }
+
+    @GetMapping("/applications-admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String showUsersApplications(Model model) {
+        List<Application> applications = applicationService.findAllApplications();
+        List<Room> rooms = roomService.findAllRooms();
+        model.addAttribute("applications", applications);
+        model.addAttribute("rooms", rooms);
+
+        return "applications_admin";
     }
 }

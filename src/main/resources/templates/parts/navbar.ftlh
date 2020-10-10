@@ -20,7 +20,7 @@
         </ul>
 
         <#if role == "ADMIN">
-            <a class="nav-link" href="/user-applications">User's applications</a>
+            <a class="nav-link" href="/applications-admin">User's applications</a>
         </#if>
         <#if role == "USER">
             <a class="nav-link" href="/applications">My applications</a>

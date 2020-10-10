@@ -27,7 +27,7 @@
                     <td>${reservation.checkInDate}</td>
                     <td>${reservation.checkOutDate}</td>
                     <td>${reservation.status}</td>
-                    <td>${reservation.totalPrice}</td>
+                    <td>${reservation.totalPrice}$</td>
                 </tr>
             </#list>
             </tbody>

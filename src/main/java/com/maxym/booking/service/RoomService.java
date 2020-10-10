@@ -27,4 +27,8 @@ public class RoomService {
     public Optional<Room> findRoomById(long id) {
         return roomRepo.findById(id);
     }
+
+    public void deleteRoomById(long id) {
+        roomRepo.deleteById(id);
+    }
 }

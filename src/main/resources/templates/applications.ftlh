@@ -95,8 +95,8 @@
                                     </form>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <form action="/application-decline" method="post">
-                                        <button type="submit" class="btn btn-warning">Decline</button>
+                                    <form action="/application-reject" method="post">
+                                        <button type="submit" class="btn btn-warning">Reject</button>
                                         <input type="hidden" name="id" value="${application.id}">
                                         <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     </form>

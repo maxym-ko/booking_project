@@ -3,116 +3,79 @@
 
 <@c.page "Main">
     <#if role == "ADMIN">
-        <a class="btn btn-primary mb-3" data-toggle="collapse" href="#addNewRoomId" role="button" aria-expanded="false"
-           aria-controls="collapseExample">
-            Add new room
-        </a>
-        <div class="collapse" id="addNewRoomId">
-            <div class="form-group">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                            <input class="form-control" type="text" name="capacity" placeholder="capacity">
-                        </div>
-                        <div class="form-group col-md">
-                            <input class="form-control" type="text" name="price" placeholder="price">
-                        </div>
-                        <div class="form-group col-md">
-                            <select class="custom-select" name="type" class="form-control">
-                                <option disabled selected>Select room type</option>
-                                <option value="ECONOMY">ECONOMY</option>
-                                <option value="STANDARD">STANDARD</option>
-                                <option value="LUXURY">LUXURY</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-file">
-                            <input type="file" name="file" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose room image</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success" type="submit">Add</button>
-                    </div>
-                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                </form>
-            </div>
-        </div>
+        <#include "parts/room/addRoom.ftlh"/>
         <hr class="mt-2 mb-3"/>
     </#if>
 
     <div class="card-columns">
         <#list rooms as room>
-<#--            todo: create condition-->
-<#--            <#if room.status == "VACANT">-->
+        <#--            todo: create condition-->
+            <#if room.status != "UNAVAILABLE">
                 <div class="card border-dark bg-light mb-3">
                     <#if room.imgName??>
                         <img class="card-img-top" src="/img/${room.imgName}">
                     </#if>
+
                     <div class="card-body">
-                        <p class="card-text">Capacity: ${room.capacity}</p>
-                        <p class="card-text">Type: <i>${room.type}</i></p>
-                        <p class="card-text">Price: <strong>${room.price}$</strong> (per night)</p>
+                        <#if role != "ADMIN">
+                            <p class="card-text">Capacity: ${room.capacity}</p>
+                            <p class="card-text">Type: <i>${room.type}</i></p>
+                            <p class="card-text">Price: <strong>${room.price}$</strong> (per night)</p>
+                        </#if>
 
                         <#if role == "USER">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#bookModal">
-                                Book now
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <form action="/book" method="post">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Select check-in and
-                                                    check-out date</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group row">
-                                                    <label for="check-in" class="col-4 col-form-label">Check-in</label>
-                                                    <div class="col-8">
-                                                        <input class="form-control" name="checkInDate" type="date"
-                                                               id="check-in">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="check-out"
-                                                           class="col-4 col-form-label">Check-out</label>
-                                                    <div class="col-8">
-                                                        <input class="form-control" name="checkOutDate" type="date"
-                                                               id="check-out">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" class="btn btn-success">Book</button>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="id" value="${room.id}">
-                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                    </form>
-                                </div>
-                            </div>
+                            <#include "parts/room/bookRoom.ftlh">
                         </#if>
+
                         <#if role == "ADMIN">
-                            <a href="#" class="btn btn-secondary">Change</a>
-                            <a href="#" class="btn btn-danger">Remove</a>
+
+                            <form action="/room-change" method="post">
+                                <input type="hidden" name="id" value="${room.id}">
+                                <div class="form-group row">
+                                    <label for="capacity" class="col-sm-6 col-form-label">Capacity: </label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="capacity" type="text" name="capacity"
+                                               value="${room.capacity}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="type" class="col-sm-6 col-form-label">Type: </label>
+                                    <div class="col-sm-6">
+                                        <select class="custom-select" id="type" name="type">
+                                            <option <#if room.type == "ECONOMY"> selected </#if> value="ECONOMY">ECONOMY
+                                            </option>
+                                            <option <#if room.type == "STANDARD"> selected </#if> value="STANDARD">
+                                                STANDARD
+                                            </option>
+                                            <option <#if room.type == "LUXURY"> selected </#if> value="LUXURY">LUXURY
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="price" class="col-sm-6 col-form-label">Price ($ per night): </label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="price" type="text" name="price"
+                                               value="${room.price}">
+                                    </div>
+                                </div>
+                                <div class="form-row ml-1">
+                                    <div class="form-group mr-2">
+                                        <button class="btn btn-secondary" type="submit">Change</button>
+                                    </div>
+                                    <div class="form-group mr-2">
+                                        <form action="/room-remove" method="post">
+                                            <button class="btn btn-danger" type="submit">Remove</button>
+                                            <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </form>
                         </#if>
                     </div>
+
                 </div>
-<#--            </#if>-->
+            </#if>
         <#else>
             No rooms available
         </#list>
