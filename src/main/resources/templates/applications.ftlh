@@ -50,7 +50,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Room photo</th>
+                <th style="width: 20%" scope="col">Room photo</th>
                 <th scope="col">Capacity</th>
                 <th scope="col">Type</th>
                 <th scope="col">Check-in</th>
@@ -85,8 +85,8 @@
                     </#if>
 
                     <td>
-                        <div class="form-row">
-                            <#if application.status == "WAITING">
+                        <#if application.status == "WAITING">
+                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <form action="/application-accept" method="post">
                                         <button type="submit" class="btn btn-success">Accept</button>
@@ -94,15 +94,22 @@
                                         <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     </form>
                                 </div>
-                            </#if>
-                            <div class="form-group col-md-6">
-                                <form action="/application-remove" method="post">
-                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                    <input type="hidden" name="id" value="${application.id}">
-                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                </form>
+                                <div class="form-group col-md-6">
+                                    <form action="/application-decline" method="post">
+                                        <button type="submit" class="btn btn-warning">Decline</button>
+                                        <input type="hidden" name="id" value="${application.id}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        </#if>
+<#--                        <div class="form-group col-md-6">-->
+                            <form action="/application-remove" method="post">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                                <input type="hidden" name="id" value="${application.id}">
+                                <input type="hidden" name="_csrf" value="${_csrf.token}">
+                            </form>
+<#--                        </div>-->
                     </td>
                 </tr>
             </#list>

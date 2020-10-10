@@ -1,9 +1,11 @@
 package com.maxym.booking.domain.room;
 
+import com.maxym.booking.domain.reservation.Reservation;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +21,9 @@ public class Room {
     private RoomStatus status;
 
     private String imgName;
+
+    @OneToMany(mappedBy = "room")
+    private List<Reservation> reservations;
 
     public long getId() {
         return id;
@@ -66,5 +71,13 @@ public class Room {
 
     public void setImgName(String imgName) {
         this.imgName = imgName;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

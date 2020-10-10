@@ -1,7 +1,5 @@
 package com.maxym.booking.domain.application;
 
-import com.maxym.booking.domain.room.Room;
-
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;

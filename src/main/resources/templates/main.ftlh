@@ -44,7 +44,8 @@
 
     <div class="card-columns">
         <#list rooms as room>
-            <#if room.status == "VACANT">
+<#--            todo: create condition-->
+<#--            <#if room.status == "VACANT">-->
                 <div class="card border-dark bg-light mb-3">
                     <#if room.imgName??>
                         <img class="card-img-top" src="/img/${room.imgName}">
@@ -111,7 +112,7 @@
                         </#if>
                     </div>
                 </div>
-            </#if>
+<#--            </#if>-->
         <#else>
             No rooms available
         </#list>

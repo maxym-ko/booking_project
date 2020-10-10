@@ -1,6 +1,7 @@
 package com.maxym.booking.domain.user;
 
 import com.maxym.booking.domain.application.Application;
+import com.maxym.booking.domain.reservation.Reservation;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +11,6 @@ import java.util.Collections;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +24,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Application> applications;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
 
     public long getId() {
         return id;
@@ -88,5 +91,13 @@ public class User implements UserDetails {
 
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

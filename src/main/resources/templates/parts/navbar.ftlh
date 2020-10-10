@@ -24,6 +24,7 @@
         </#if>
         <#if role == "USER">
             <a class="nav-link" href="/applications">My applications</a>
+            <a class="nav-link" href="/reservations">My reservations</a>
         </#if>
 <#--        <div class="navbar-text mr-3">${name}</div>-->
         <#if name != "unknown">

@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "application")
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
