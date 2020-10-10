@@ -1,7 +1,9 @@
 package com.maxym.booking.domain.application;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bill")
@@ -11,7 +13,20 @@ public class Bill {
     private long id;
 
     private double totalPrice;
-    private LocalDate created;
+    private LocalDateTime created;
+
+    public Bill() {}
+
+    public Bill(LocalDate start, LocalDate end, double price) {
+        created = LocalDateTime.now();
+
+        long days = Duration.between(start.atStartOfDay(), end.atStartOfDay()).toDays();
+
+        System.out.println(days);
+
+        double totalPrice = price * days;
+        this.totalPrice = totalPrice;
+    }
 
     public long getId() {
         return id;
@@ -29,11 +44,11 @@ public class Bill {
         this.totalPrice = totalPrice;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 }

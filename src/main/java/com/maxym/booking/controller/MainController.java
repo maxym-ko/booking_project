@@ -2,12 +2,9 @@ package com.maxym.booking.controller;
 
 import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.room.RoomStatus;
-import com.maxym.booking.domain.user.User;
 import com.maxym.booking.service.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,14 +36,13 @@ public class MainController {
     @GetMapping
     public String showRooms(Model model) {
         List<Room> rooms = roomService.findAllRooms();
-
         model.addAttribute("rooms", rooms);
         return "main";
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String addRoom(@AuthenticationPrincipal User user, Room room, Map<String, Object> model,
+    public String addRoom(Room room, Map<String, Object> model,
                           @RequestParam("file") MultipartFile file) throws IOException {
         room.setStatus(RoomStatus.VACANT);
         saveImgToRoom(file, room);

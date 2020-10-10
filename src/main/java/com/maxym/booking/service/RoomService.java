@@ -5,6 +5,7 @@ import com.maxym.booking.repos.RoomRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -17,6 +18,10 @@ public class RoomService {
 
     public List<Room> findAllRooms() {
         return roomRepo.findAll();
+    }
+
+    public Optional<Room> findRoomById(long id) {
+        return roomRepo.findById(id);
     }
 
     public void saveRoom(Room room) {

@@ -55,8 +55,6 @@
                         <p class="card-text">Price: <strong>${room.price}$</strong> (per night)</p>
 
                         <#if role == "USER">
-                        <#--                            <a href="#" class="btn btn-primary">Book now</a>-->
-                        <#--                                <input class="btn btn-primary" type="submit" value="Book now"/>-->
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#bookModal">
@@ -81,14 +79,15 @@
                                                 <div class="form-group row">
                                                     <label for="check-in" class="col-4 col-form-label">Check-in</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" name="check-in" type="date"
+                                                        <input class="form-control" name="checkInDate" type="date"
                                                                id="check-in">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="check-out" class="col-4 col-form-label">Check-out</label>
+                                                    <label for="check-out"
+                                                           class="col-4 col-form-label">Check-out</label>
                                                     <div class="col-8">
-                                                        <input class="form-control" name="check-out" type="date"
+                                                        <input class="form-control" name="checkOutDate" type="date"
                                                                id="check-out">
                                                     </div>
                                                 </div>
@@ -100,6 +99,8 @@
                                                 <button type="submit" class="btn btn-primary">Book</button>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id" value="${room.id}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     </form>
                                 </div>
                             </div>
