@@ -20,9 +20,9 @@
             <tbody>
 
             <#list applications as application>
-                <#if application.status??>
+                <#if application.status != "APPROVED">
                     <tr>
-                        <#if application.status != "LOOKING_FOR" || application.status != "APPROVED">
+                        <#if application.status != "LOOKING_FOR">
                             <th scope="row">${application?counter}</th>
                             <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
                             <td>${application.requirementCapacity}</td>

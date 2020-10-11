@@ -29,7 +29,31 @@
                     <td>${reservation.checkOutDate}</td>
                     <td>${reservation.status}</td>
                     <td>${reservation.totalPrice}$</td>
-                    <td><#include "parts/confirmPayment.ftlh"></td>
+                    <td>
+                        <form action="/payment-confirm" method="post">
+                            <#--                            <#include "parts/confirmPayment.ftlh">-->
+                            <#assign paymentWaiting = (reservation.status == "PAYMENT_WAITING")>
+                            <#if paymentWaiting>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="receiptId">Receipt ID: </label>
+                                        <input class="form-control" name="receiptId" type="text"
+                                               id="receiptId">
+                                    </div>
+                                </div>
+                            </#if>
+                            <button <#if !paymentWaiting >disabled</#if> type="submit"
+                                    class="btn btn-success">
+                                <#if paymentWaiting >
+                                    Confirm payment
+                                <#else>
+                                    Payment confirmed
+                                </#if>
+                            </button>
+                            <input type="hidden" name="reservationId" value="${reservation.id}">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}">
+                        </form>
+                    </td>
                 </tr>
             </#list>
             </tbody>

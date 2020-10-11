@@ -36,8 +36,6 @@
                     <button type="submit" class="btn btn-success">Confirm</button>
                 </div>
             </div>
-            <input type="hidden" name="reservationId" value="${reservation.id}">
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
         </form>
     </div>
 </div>
