@@ -72,7 +72,7 @@
                         <td>${application.checkInDate}</td>
                         <td>${application.checkOutDate}</td>
                         <td>${application.status}</td>
-                        <td><#if application.bill??>${application.bill.totalPrice}$</#if></td>
+                        <td>${application.totalPrice}$</td>
                     <#else>
                         <th scope="row">${application?counter}</th>
                         <td>Wait for manager to pick you a room</td>

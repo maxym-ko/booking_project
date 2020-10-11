@@ -27,6 +27,12 @@ public class ApplicationService {
         return applicationRepo.findById(id);
     }
 
+    public Optional<Application> findApplicationByIdAndDelete(long id) {
+        Optional<Application> applicationOptional = applicationRepo.findById(id);
+        applicationOptional.ifPresent(application -> applicationRepo.deleteById(id));
+        return applicationOptional;
+    }
+
     public void deleteApplicationByIdIfExists(long id) {
         Optional<Application> optionalApplication = applicationRepo.findById(id);
 

@@ -6,6 +6,7 @@ import com.maxym.booking.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 
 @Entity
@@ -15,7 +16,11 @@ public class Application {
     private long id;
 
     private int requirementCapacity;
+
+    @Enumerated(EnumType.STRING)
     private RoomType requirementType;
+
+    private double totalPrice;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
@@ -58,6 +63,14 @@ public class Application {
 
     public void setRequirementType(RoomType requirementType) {
         this.requirementType = requirementType;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public ApplicationStatus getStatus() {
@@ -106,5 +119,11 @@ public class Application {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+
+    public void calcTotalPrice() {
+        long days = Duration.between(checkInDate.atStartOfDay(), checkOutDate.atStartOfDay()).toDays();
+        this.totalPrice = room.getPrice() * days;
     }
 }

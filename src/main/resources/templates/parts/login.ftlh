@@ -12,6 +12,18 @@
                 <input class="form-control" type="password" name="password" placeholder="Password"/>
             </div>
         </div>
+        <#if isRegisterForm>
+            <div class="form-group row">
+                <label for="role" class="col-sm-2 col-form-label">Role: </label>
+                <div class="col-sm-5">
+                    <select class="custom-select" id="role" name="role">
+                        <option disabled selected>Select room type</option>
+                        <option value="USER">USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                    </select>
+                </div>
+            </div>
+        </#if>
         <button class="btn btn-primary mr-2" type="submit">
             <#if isRegisterForm>Create<#else>Sign In</#if>
         </button>

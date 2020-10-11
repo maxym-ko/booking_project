@@ -61,16 +61,23 @@
                                 </div>
                                 <div class="form-row ml-1">
                                     <div class="form-group mr-2">
-                                        <button class="btn btn-secondary" type="submit">Change</button>
-                                    </div>
-                                    <div class="form-group mr-2">
-                                        <form action="/room-remove" method="post">
-                                            <button class="btn btn-danger" type="submit">Remove</button>
+                                        <form action="/room-change" method="post">
+                                            <button class="btn btn-secondary" type="submit">Change</button>
                                             <input type="hidden" name="_csrf" value="${_csrf.token}">
                                         </form>
                                     </div>
                                 </div>
                             </form>
+
+                            <div class="form-row ml-1">
+                                <div class="form-group mr-2">
+                                    <form action="/room-remove" method="post">
+                                        <button class="btn btn-danger" type="submit">Remove</button>
+                                        <input type="hidden" name="id" value="${room.id}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                    </form>
+                                </div>
+                            </div>
                         </#if>
                     </div>
 

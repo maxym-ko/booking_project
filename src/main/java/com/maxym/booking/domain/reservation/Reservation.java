@@ -1,5 +1,6 @@
 package com.maxym.booking.domain.reservation;
 
+import com.maxym.booking.domain.application.Application;
 import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,6 +33,17 @@ public class Reservation {
     private LocalDate checkOutDate;
 
     private double totalPrice;
+
+    public Reservation() {}
+
+    public Reservation(Application application) {
+        status = ReservationStatus.BOOKED;
+        room = application.getRoom();
+        owner = application.getOwner();
+        checkInDate = application.getCheckInDate();
+        checkOutDate = application.getCheckOutDate();
+        totalPrice = application.getTotalPrice();
+    }
 
     public long getId() {
         return id;

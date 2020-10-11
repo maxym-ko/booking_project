@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Room photo</th>
+                <th style="width: 20%" scope="col">Room photo</th>
                 <th scope="col">Required capacity</th>
                 <th scope="col">Required type</th>
                 <th scope="col">Check-in</th>
@@ -29,7 +29,7 @@
                         <td>${application.checkInDate}</td>
                         <td>${application.checkOutDate}</td>
                         <td>${application.status}</td>
-                        <td><#if application.bill??>${application.bill.totalPrice}$</#if></td>
+                        <td>${application.totalPrice}$</td>
                     <#else>
                         <th scope="row">${application?counter}</th>
                         <td>Not selected yet</td>
@@ -38,28 +38,33 @@
                         <td>${application.checkInDate}</td>
                         <td>${application.checkOutDate}</td>
                         <td>${application.status}</td>
-                        <td><#if application.bill??>${application.bill.totalPrice}$<#else>?</#if></td>
+                        <td>?</td>
                     </#if>
 
                     <td>
-                        <#if application.status == "LOOKING_FOR" || application.status == "REJECTED">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <form action="/applications-accept" method="post">
-                                        <button type="submit" class="btn btn-success">Find</button>
-                                        <input type="hidden" name="id" value="${application.owner.id}">
-                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                    </form>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <form action="/room-find" method="post">
+                                    <button type="submit" class="btn btn-success">
+                                        <#if application.status == "WAITING">
+                                            Change
+                                        <#else>
+                                            Find
+                                        </#if>
+                                    </button>
+                                    <input type="hidden" name="id" value="${application.id}">
+                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                </form>
                             </div>
-                        </#if>
-                        <#--                        <div class="form-group col-md-6">-->
-<#--                        <form action="/application-remove" method="post">-->
-<#--                            <button type="submit" class="btn btn-danger">Remove</button>-->
-<#--                            <input type="hidden" name="id" value="${application.id}">-->
-<#--                            <input type="hidden" name="_csrf" value="${_csrf.token}">-->
-<#--                        </form>-->
-                        <#--                        </div>-->
+                            <div class="form-group col-md-6">
+                                <form action="/application-remove-admin" method="post">
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                    <input type="hidden" name="id" value="${application.id}">
+                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                </form>
+                            </div>
+                        </div>
+
                     </td>
                 </tr>
             </#list>
