@@ -1,5 +1,6 @@
 package com.maxym.booking.controller;
 
+import com.maxym.booking.domain.application.Application;
 import com.maxym.booking.domain.reservation.Reservation;
 import com.maxym.booking.domain.reservation.ReservationStatus;
 import com.maxym.booking.service.ReservationService;

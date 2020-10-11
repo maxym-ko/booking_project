@@ -38,4 +38,8 @@ public class ApplicationService {
 
         optionalApplication.ifPresent(application -> applicationRepo.deleteById(id));
     }
+
+    public void deleteApplicationById(long id) {
+        applicationRepo.deleteById(id);
+    }
 }

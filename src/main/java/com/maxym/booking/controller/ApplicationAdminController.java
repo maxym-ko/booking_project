@@ -2,9 +2,13 @@ package com.maxym.booking.controller;
 
 import com.maxym.booking.domain.application.Application;
 import com.maxym.booking.domain.application.ApplicationStatus;
+import com.maxym.booking.domain.application.Bill;
 import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.service.ApplicationService;
 import com.maxym.booking.service.RoomService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -39,17 +43,18 @@ public class ApplicationAdminController {
     @GetMapping("/applications-admin")
     public String showsApplicationsAdmin(Model model) {
         List<Application> applications = applicationService.findAllApplications();
-        List<Room> rooms = roomService.findAllRooms();
         model.addAttribute("applications", applications);
-        model.addAttribute("rooms", rooms);
-
         return "applications_admin";
     }
 
-    @PostMapping("/room-find")
-    public String showRooms2Select(@RequestParam("id") long applicationId, Model model) {
-        List<Room> rooms = roomService.findAllRooms();
-        model.addAttribute("rooms", rooms);
+    @GetMapping("/room-find")
+    public String showRooms2Select(@RequestParam("id") long applicationId, Model model,
+                                   @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                   @RequestParam(name = "page", defaultValue = "0") int pageNo) {
+        Page<Room> page = roomService.findAllRooms(PageRequest.of(pageNo, 6, Sort.by(sort)));
+        model.addAttribute("id", applicationId);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/room-find");
         model.addAttribute("applicationId", applicationId);
 
         return "findRoom";
@@ -69,6 +74,8 @@ public class ApplicationAdminController {
         Application application = applicationOptional.get();
         Room room = roomOptional.get();
 
+        Bill bill = new Bill(application.getCheckInDate(), application.getCheckOutDate(), room.getPrice());
+        application.setBill(bill);
         application.setRoom(room);
         application.setStatus(ApplicationStatus.WAITING);
         application.calcTotalPrice();

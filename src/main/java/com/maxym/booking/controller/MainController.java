@@ -4,6 +4,9 @@ import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.room.RoomStatus;
 import com.maxym.booking.service.RoomService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
 public class MainController {
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -34,24 +35,29 @@ public class MainController {
     }
 
     @GetMapping
-    public String showRooms(Model model) {
-        List<Room> rooms = roomService.findAllRooms();
-        model.addAttribute("rooms", rooms);
+    public String showRooms(Model model,
+                            @RequestParam(name = "sort", defaultValue = "id") String sort,
+                            @RequestParam(name = "page", defaultValue = "0") int pageNo) {
+        Page<Room> page = roomService.findAllRooms(PageRequest.of(pageNo, 6, Sort.by(sort)));
+        model.addAttribute("page", page);
+        model.addAttribute("url", "");
         return "main";
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addRoom(Room room, Map<String, Object> model,
-                          @RequestParam("file") MultipartFile file) throws IOException {
+                          @RequestParam("file") MultipartFile file,
+                          @RequestParam(name = "sort", defaultValue = "id") String sort,
+                          @RequestParam(name = "page", defaultValue = "0") int pageNo) throws IOException {
         room.setStatus(RoomStatus.VACANT);
         saveImgToRoom(file, room);
 
         roomService.saveRoom(room);
 
-        List<Room> messages = roomService.findAllRooms();
+        Page<Room> page = roomService.findAllRooms(PageRequest.of(pageNo, 6, Sort.by(sort)));
 
-        model.put("rooms", messages);
+        model.put("page", page);
         return "main";
     }
 

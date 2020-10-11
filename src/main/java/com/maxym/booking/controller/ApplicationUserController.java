@@ -62,15 +62,16 @@ public class ApplicationUserController {
     @PostMapping("/application-accept")
     @Transactional
     public String acceptApplicant(@RequestParam("id") long id) {
-        Optional<Application> applicationOptional = applicationService.findApplicationByIdAndDelete(id);
+        Optional<Application> applicationOptional = applicationService.findApplicationById(id);
         if (!applicationOptional.isPresent()) {
-            return "/error";
+            return "redirect:/error";
         }
 
         Application application = applicationOptional.get();
         Reservation reservation = new Reservation(application);
 
         reservationService.saveReservation(reservation);
+        application.setStatus(ApplicationStatus.APPROVED);
 
         return "redirect:/applications";
     }
@@ -94,7 +95,7 @@ public class ApplicationUserController {
 
     @PostMapping("/application-remove")
     public String removeApplicant(@RequestParam("id") long id) {
-        applicationService.deleteApplicationByIdIfExists(id);
+        applicationService.deleteApplicationById(id);
 
         return "redirect:/applications";
     }

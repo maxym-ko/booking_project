@@ -22,7 +22,7 @@
             <#list applications as application>
                 <#if application.status??>
                     <tr>
-                        <#if application.status != "LOOKING_FOR">
+                        <#if application.status != "LOOKING_FOR" || application.status != "APPROVED">
                             <th scope="row">${application?counter}</th>
                             <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
                             <td>${application.requirementCapacity}</td>
@@ -45,17 +45,17 @@
                         <td>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <form action="/room-find" method="post">
-                                        <button type="submit" class="btn btn-success">
+<#--                                    <form action="/room-find" method="post">-->
+                                        <a href="/room-find?id=${application.id}" type="submit" class="btn btn-success">
                                             <#if application.status == "WAITING">
                                                 Change
                                             <#else>
                                                 Find
                                             </#if>
-                                        </button>
-                                        <input type="hidden" name="id" value="${application.id}">
-                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                    </form>
+                                        </a>
+<#--                                        <input type="hidden" name="id" value="${application.id}">-->
+<#--                                        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
+<#--                                    </form>-->
                                 </div>
                                 <div class="form-group col-md-6">
                                     <form action="/application-remove-admin" method="post">

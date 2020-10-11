@@ -1,6 +1,7 @@
 package com.maxym.booking.domain.reservation;
 
 import com.maxym.booking.domain.application.Application;
+import com.maxym.booking.domain.application.Bill;
 import com.maxym.booking.domain.room.Room;
 import com.maxym.booking.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -46,6 +47,7 @@ public class Reservation {
         checkInDate = application.getCheckInDate();
         checkOutDate = application.getCheckOutDate();
         totalPrice = application.getTotalPrice();
+        this.application = application;
     }
 
     public long getId() {

@@ -64,7 +64,7 @@
 
             <#list applications as application>
                 <tr>
-                    <#if application.status??>
+                    <#if application.status != "APPROVED">
 
                         <#if application.room??>
                             <th scope="row">${application?counter}</th>
