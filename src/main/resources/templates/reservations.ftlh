@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Room photo</th>
+                <th style="width: 20%" scope="col">Room photo</th>
                 <th scope="col">Capacity</th>
                 <th scope="col">Type</th>
                 <th scope="col">Check-in</th>
