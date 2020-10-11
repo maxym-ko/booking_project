@@ -1,7 +1,6 @@
 package com.maxym.booking.controller;
 
 import com.maxym.booking.domain.application.Application;
-import com.maxym.booking.domain.application.ApplicationStatus;
 import com.maxym.booking.domain.application.Bill;
 import com.maxym.booking.domain.reservation.Reservation;
 import com.maxym.booking.domain.reservation.ReservationStatus;
@@ -17,28 +16,25 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
 public class RoomController {
-    private final BillService billService;
+    private final ApplicationService applicationService;
     private final ReservationService reservationService;
     private final RoomService roomService;
 
-    public RoomController(BillService billService, ReservationService reservationService, RoomService roomService) {
-        this.billService = billService;
+    public RoomController(ApplicationService applicationService, ReservationService reservationService, RoomService roomService) {
+        this.applicationService = applicationService;
         this.reservationService = reservationService;
         this.roomService = roomService;
     }
 
     @Transactional
-    @PostMapping("/book")
+    @PostMapping("/room-book")
     @PreAuthorize("hasAuthority('USER')")
     public String bookRoom(@AuthenticationPrincipal User user, @RequestParam("id") long roomId, Reservation reservation) {
         Optional<Room> roomOptional = roomService.findRoomById(roomId);
@@ -51,12 +47,15 @@ public class RoomController {
         room.setStatus(RoomStatus.BOOKED);
 
         Bill bill = new Bill(reservation.getCheckInDate(), reservation.getCheckOutDate(), room.getPrice());
-        billService.saveBill(bill);
+        Application application = new Application();
+        application.setBill(bill);
+        applicationService.saveApplicant(application);
 
+        reservation.setApplication(application);
         reservation.setOwner(user);
         reservation.setRoom(room);
 
-        reservation.setStatus(ReservationStatus.BOOKED);
+        reservation.setStatus(ReservationStatus.PAYMENT_WAITING);
         reservation.calcTotalPrice();
         reservationService.saveReservation(reservation);
         return "redirect:/reservations";

@@ -14,6 +14,7 @@ public class Bill {
 
     private double totalPrice;
     private LocalDateTime created;
+    private String receiptId;
 
     public Bill() {}
 
@@ -48,5 +49,13 @@ public class Bill {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public String getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(String receiptId) {
+        this.receiptId = receiptId;
     }
 }

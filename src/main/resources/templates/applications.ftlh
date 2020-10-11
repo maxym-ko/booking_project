@@ -13,7 +13,7 @@
                 <form action="/application-create" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md">
-                            <input class="form-control" type="text" name="capacity" placeholder="capacity">
+                            <input class="form-control" type="number" min="0" name="capacity" placeholder="capacity">
                         </div>
                         <div class="form-group col-md">
                             <select class="custom-select" name="type" class="form-control">
@@ -64,53 +64,55 @@
 
             <#list applications as application>
                 <tr>
-                    <#if application.room??>
-                        <th scope="row">${application?counter}</th>
-                        <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
-                        <td>${application.room.capacity}</td>
-                        <td>${application.room.type}</td>
-                        <td>${application.checkInDate}</td>
-                        <td>${application.checkOutDate}</td>
-                        <td>${application.status}</td>
-                        <td>${application.totalPrice}$</td>
-                    <#else>
-                        <th scope="row">${application?counter}</th>
-                        <td>Wait for manager to pick you a room</td>
-                        <td>${application.requirementCapacity}</td>
-                        <td>${application.requirementType}</td>
-                        <td>${application.checkInDate}</td>
-                        <td>${application.checkOutDate}</td>
-                        <td>${application.status}</td>
-                        <td><#if application.bill??>${application.bill.totalPrice}$<#else>?</#if></td>
-                    </#if>
+                    <#if application.status??>
 
-                    <td>
-                        <#if application.status == "WAITING">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <form action="/application-accept" method="post">
-                                        <button type="submit" class="btn btn-success">Accept</button>
-                                        <input type="hidden" name="id" value="${application.id}">
-                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                    </form>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <form action="/application-reject" method="post">
-                                        <button type="submit" class="btn btn-warning">Reject</button>
-                                        <input type="hidden" name="id" value="${application.id}">
-                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                    </form>
-                                </div>
-                            </div>
+                        <#if application.room??>
+                            <th scope="row">${application?counter}</th>
+                            <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
+                            <td>${application.room.capacity}</td>
+                            <td>${application.room.type}</td>
+                            <td>${application.checkInDate}</td>
+                            <td>${application.checkOutDate}</td>
+                            <td>${application.status}</td>
+                            <td>${application.totalPrice}$</td>
+                        <#else>
+                            <th scope="row">${application?counter}</th>
+                            <td>Wait for manager to pick you a room</td>
+                            <td>${application.requirementCapacity}</td>
+                            <td>${application.requirementType}</td>
+                            <td>${application.checkInDate}</td>
+                            <td>${application.checkOutDate}</td>
+                            <td>${application.status}</td>
+                            <td><#if application.bill??>${application.bill.totalPrice}$<#else>?</#if></td>
                         </#if>
-<#--                        <div class="form-group col-md-6">-->
+
+                        <td>
+                            <#if application.status == "WAITING">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <form action="/application-accept" method="post">
+                                            <button type="submit" class="btn btn-success">Accept</button>
+                                            <input type="hidden" name="id" value="${application.id}">
+                                            <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                        </form>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <form action="/application-reject" method="post">
+                                            <button type="submit" class="btn btn-warning">Reject</button>
+                                            <input type="hidden" name="id" value="${application.id}">
+                                            <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </#if>
                             <form action="/application-remove" method="post">
                                 <button type="submit" class="btn btn-danger">Remove</button>
                                 <input type="hidden" name="id" value="${application.id}">
                                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                             </form>
-<#--                        </div>-->
-                    </td>
+                        </td>
+
+                    </#if>
                 </tr>
             </#list>
             </tbody>

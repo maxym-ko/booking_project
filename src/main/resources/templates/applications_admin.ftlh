@@ -20,53 +20,55 @@
             <tbody>
 
             <#list applications as application>
-                <tr>
-                    <#if application.status != "LOOKING_FOR">
-                        <th scope="row">${application?counter}</th>
-                        <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
-                        <td>${application.requirementCapacity}</td>
-                        <td>${application.requirementType}</td>
-                        <td>${application.checkInDate}</td>
-                        <td>${application.checkOutDate}</td>
-                        <td>${application.status}</td>
-                        <td>${application.totalPrice}$</td>
-                    <#else>
-                        <th scope="row">${application?counter}</th>
-                        <td>Not selected yet</td>
-                        <td>${application.requirementCapacity}</td>
-                        <td>${application.requirementType}</td>
-                        <td>${application.checkInDate}</td>
-                        <td>${application.checkOutDate}</td>
-                        <td>${application.status}</td>
-                        <td>?</td>
-                    </#if>
+                <#if application.status??>
+                    <tr>
+                        <#if application.status != "LOOKING_FOR">
+                            <th scope="row">${application?counter}</th>
+                            <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
+                            <td>${application.requirementCapacity}</td>
+                            <td>${application.requirementType}</td>
+                            <td>${application.checkInDate}</td>
+                            <td>${application.checkOutDate}</td>
+                            <td>${application.status}</td>
+                            <td>${application.totalPrice}$</td>
+                        <#else>
+                            <th scope="row">${application?counter}</th>
+                            <td>Not selected yet</td>
+                            <td>${application.requirementCapacity}</td>
+                            <td>${application.requirementType}</td>
+                            <td>${application.checkInDate}</td>
+                            <td>${application.checkOutDate}</td>
+                            <td>${application.status}</td>
+                            <td>?</td>
+                        </#if>
 
-                    <td>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <form action="/room-find" method="post">
-                                    <button type="submit" class="btn btn-success">
-                                        <#if application.status == "WAITING">
-                                            Change
-                                        <#else>
-                                            Find
-                                        </#if>
-                                    </button>
-                                    <input type="hidden" name="id" value="${application.id}">
-                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                </form>
+                        <td>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <form action="/room-find" method="post">
+                                        <button type="submit" class="btn btn-success">
+                                            <#if application.status == "WAITING">
+                                                Change
+                                            <#else>
+                                                Find
+                                            </#if>
+                                        </button>
+                                        <input type="hidden" name="id" value="${application.id}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                    </form>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <form action="/application-remove-admin" method="post">
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                        <input type="hidden" name="id" value="${application.id}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                    </form>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <form action="/application-remove-admin" method="post">
-                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                    <input type="hidden" name="id" value="${application.id}">
-                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                </form>
-                            </div>
-                        </div>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                </#if>
             </#list>
             </tbody>
         </table>

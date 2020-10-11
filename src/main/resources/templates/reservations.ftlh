@@ -14,6 +14,7 @@
                 <th scope="col">Check-out</th>
                 <th scope="col">Status</th>
                 <th scope="col">Price</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
                     <td>${reservation.checkOutDate}</td>
                     <td>${reservation.status}</td>
                     <td>${reservation.totalPrice}$</td>
+                    <td><#include "parts/confirmPayment.ftlh"></td>
                 </tr>
             </#list>
             </tbody>

@@ -32,12 +32,15 @@ public class Reservation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Application application;
+
     private double totalPrice;
 
     public Reservation() {}
 
     public Reservation(Application application) {
-        status = ReservationStatus.BOOKED;
+        status = ReservationStatus.PAYMENT_WAITING;
         room = application.getRoom();
         owner = application.getOwner();
         checkInDate = application.getCheckInDate();
@@ -99,6 +102,14 @@ public class Reservation {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public void calcTotalPrice() {

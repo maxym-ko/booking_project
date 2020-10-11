@@ -34,7 +34,7 @@
                                 <div class="form-group row">
                                     <label for="capacity" class="col-sm-6 col-form-label">Capacity: </label>
                                     <div class="col-sm-6">
-                                        <input class="form-control" id="capacity" type="text" name="capacity"
+                                        <input class="form-control" id="capacity" type="number" min="1" name="capacity"
                                                value="${room.capacity}">
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                 <div class="form-group row">
                                     <label for="price" class="col-sm-6 col-form-label">Price ($ per night): </label>
                                     <div class="col-sm-6">
-                                        <input class="form-control" id="price" type="text" name="price"
+                                        <input class="form-control" id="price" type="number" min="0" name="price"
                                                value="${room.price}">
                                     </div>
                                 </div>

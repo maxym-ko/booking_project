@@ -32,7 +32,6 @@ public class RegistrationController {
             return "registration";
         }
 
-//        user.setRole(Role.USER);
         userRepo.save(user);
 
         return "redirect:/login";
