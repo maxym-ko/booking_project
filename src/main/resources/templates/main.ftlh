@@ -1,6 +1,7 @@
 <#include "parts/security.ftlh">
 <#import "parts/common.ftlh" as c>
 <#import "parts/pager.ftlh" as p>
+<#import "/spring.ftl" as spring>
 
 <@c.page "Main">
     <#if role == "ADMIN">
@@ -20,9 +21,9 @@
 
                         <div class="card-body">
                             <#if role != "ADMIN">
-                                <p class="card-text">Capacity: ${room.capacity}</p>
-                                <p class="card-text">Type: <i>${room.type}</i></p>
-                                <p class="card-text">Price: <strong>${room.price}$</strong> (per night)</p>
+                                <p class="card-text"><@spring.message "room.capacity"/>: ${room.capacity}</p>
+                                <p class="card-text"><@spring.message "room.type"/>: <i>${room.type}</i></p>
+                                <p class="card-text"><@spring.message "room.price"/>: <strong>${room.price}$</strong> <@spring.message "room.price.per_night"/></p>
                             </#if>
 
                             <#if role == "USER">
@@ -34,7 +35,7 @@
                                 <form action="/room-change" method="post">
                                     <input type="hidden" name="id" value="${room.id}">
                                     <div class="form-group row">
-                                        <label for="capacity" class="col-sm-6 col-form-label">Capacity: </label>
+                                        <label for="capacity" class="col-sm-6 col-form-label"><@spring.message "room.capacity"/>: </label>
                                         <div class="col-sm-6">
                                             <input class="form-control" id="capacity" type="number" min="1"
                                                    name="capacity"
@@ -42,23 +43,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="type" class="col-sm-6 col-form-label">Type: </label>
+                                        <label for="type" class="col-sm-6 col-form-label"><@spring.message "room.type"/>: </label>
                                         <div class="col-sm-6">
                                             <select class="custom-select" id="type" name="type">
                                                 <option <#if room.type == "ECONOMY"> selected </#if> value="ECONOMY">
-                                                    ECONOMY
+                                                    <@spring.message "room.type.economy"/>
                                                 </option>
                                                 <option <#if room.type == "STANDARD"> selected </#if> value="STANDARD">
-                                                    STANDARD
+                                                    <@spring.message "room.type.standard"/>
                                                 </option>
                                                 <option <#if room.type == "LUXURY"> selected </#if> value="LUXURY">
-                                                    LUXURY
+                                                    <@spring.message "room.type.luxury"/>
                                                 </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="price" class="col-sm-6 col-form-label">Price ($ per night): </label>
+                                        <label for="price" class="col-sm-6 col-form-label"><@spring.message "room.price"/> ($ <@spring.message "room.price.per_night"/>): </label>
                                         <div class="col-sm-6">
                                             <input class="form-control" id="price" type="number" min="0" name="price"
                                                    value="${room.price}">
@@ -67,7 +68,7 @@
                                     <div class="form-row ml-1">
                                         <div class="form-group mr-2">
                                             <form action="/room-change" method="post">
-                                                <button class="btn btn-secondary" type="submit">Change</button>
+                                                <button class="btn btn-secondary" type="submit"><@spring.message "room.change"/></button>
                                                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                                             </form>
                                         </div>
@@ -77,7 +78,7 @@
                                 <div class="form-row ml-1">
                                     <div class="form-group mr-2">
                                         <form action="/room-remove" method="post">
-                                            <button class="btn btn-danger" type="submit">Remove</button>
+                                            <button class="btn btn-danger" type="submit"><@spring.message "room.remove"/></button>
                                             <input type="hidden" name="id" value="${room.id}">
                                             <input type="hidden" name="_csrf" value="${_csrf.token}">
                                         </form>
@@ -89,7 +90,7 @@
                     </div>
                 </#if>
             <#else>
-                No rooms available
+                <@spring.message "room.not_available"/>
             </#list>
         </div>
     </@p.pager>

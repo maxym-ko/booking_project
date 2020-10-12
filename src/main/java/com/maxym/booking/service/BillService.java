@@ -1,7 +1,6 @@
 package com.maxym.booking.service;
 
 import com.maxym.booking.domain.application.Bill;
-import com.maxym.booking.domain.reservation.Reservation;
 import com.maxym.booking.repos.BillRepo;
 import org.springframework.stereotype.Service;
 

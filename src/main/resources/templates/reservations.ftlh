@@ -1,5 +1,6 @@
 <#include "parts/security.ftlh">
 <#import "parts/common.ftlh" as c>
+<#import "/spring.ftl" as spring>
 
 <@c.page "Main">
     <div class="container">
@@ -7,14 +8,14 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th style="width: 20%" scope="col">Room photo</th>
-                <th scope="col">Capacity</th>
-                <th scope="col">Type</th>
-                <th scope="col">Check-in</th>
-                <th scope="col">Check-out</th>
-                <th scope="col">Status</th>
-                <th scope="col">Price</th>
-                <th scope="col">Action</th>
+                <th style="width: 20%" scope="col"><@spring.message "applications.image"/></th>
+                <th scope="col"><@spring.message "applications.capacity"/></th>
+                <th scope="col"><@spring.message "applications.type"/></th>
+                <th scope="col"><@spring.message "applications.check_in"/></th>
+                <th scope="col"><@spring.message "applications.check_out"/></th>
+                <th scope="col"><@spring.message "applications.status"/></th>
+                <th scope="col"><@spring.message "applications.status"/></th>
+                <th scope="col"><@spring.message "applications.action"/></th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +37,7 @@
                             <#if paymentWaiting>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="receiptId">Receipt ID: </label>
+                                        <label for="receiptId"><@spring.message "reservations.action.payment.receipt_id"/>: </label>
                                         <input class="form-control" name="receiptId" type="text"
                                                id="receiptId">
                                     </div>
@@ -45,9 +46,9 @@
                             <button <#if !paymentWaiting >disabled</#if> type="submit"
                                     class="btn btn-success">
                                 <#if paymentWaiting >
-                                    Confirm payment
+                                    <@spring.message "reservations.action.payment.confirm"/>
                                 <#else>
-                                    Payment confirmed
+                                    <@spring.message "reservations.action.payment.confirmed"/>
                                 </#if>
                             </button>
                             <input type="hidden" name="reservationId" value="${reservation.id}">

@@ -1,11 +1,13 @@
+<#import "/spring.ftl" as spring />
+
 <!-- Button trigger modal -->
 <button <#if reservation.status != "PAYMENT_WAITING" >disabled</#if> type="button" class="btn btn-success"
         data-toggle="modal"
         data-target="#bookModal">
     <#if reservation.status == "PAYMENT_WAITING" >
-        Confirm payment
+        <@spring.message "reservations.action.payment.confirm"/>
     <#else>
-        Payment confirmed
+        <@spring.message "reservations.action.payment.confirmed"/>
     </#if>
 </button>
 

@@ -1,18 +1,20 @@
+<#import "/spring.ftl" as spring />
+
 <#macro pager id url page>
     <div class="container mr-3">
         <div class="row">
             <ul class="pagination">
                 <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Sort by...</a>
+                    <a class="page-link" href="#" tabindex="-1"><@spring.message "room.sort_by"/></a>
                 </li>
                 <li class="page-item active">
-                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=capacity" tabindex="-1">capacity</a>
+                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=capacity" tabindex="-1"><@spring.message "room.capacity"/></a>
                 </li>
                 <li class="page-item active">
-                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=price" tabindex="-1">price</a>
+                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=price" tabindex="-1"><@spring.message "room.price"/></a>
                 </li>
                 <li class="page-item active">
-                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=type" tabindex="-1">type</a>
+                    <a class="page-link" href="${url}?<#if id != -1>id=${id}&</#if>page=0&sort=type" tabindex="-1"><@spring.message "room.type"/></a>
                 </li>
             </ul>
         </div>
@@ -22,7 +24,7 @@
         <div class="row">
             <ul class="pagination">
                 <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Pages</a>
+                    <a class="page-link" href="#" tabindex="-1"><@spring.message "room.pager"/></a>
                 </li>
                 <#list 1..page.getTotalPages() as p>
                     <#if (p - 1) == page.getNumber()>

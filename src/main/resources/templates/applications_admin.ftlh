@@ -1,5 +1,6 @@
 <#include "parts/security.ftlh">
 <#import "parts/common.ftlh" as c>
+<#import "/spring.ftl" as spring>
 
 <@c.page "Main">
     <div class="container">
@@ -7,14 +8,14 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th style="width: 20%" scope="col">Room photo</th>
-                <th scope="col">Required capacity</th>
-                <th scope="col">Required type</th>
-                <th scope="col">Check-in</th>
-                <th scope="col">Check-out</th>
-                <th scope="col">Status</th>
-                <th scope="col">Price</th>
-                <th scope="col">Action</th>
+                <th style="width: 20%" scope="col"><@spring.message "applications.image"/></th>
+                <th scope="col"><@spring.message "applications.required_capacity"/></th>
+                <th scope="col"><@spring.message "applications.required_capacity"/></th>
+                <th scope="col"><@spring.message "applications.check_in"/></th>
+                <th scope="col"><@spring.message "applications.check_out"/></th>
+                <th scope="col"><@spring.message "applications.status"/></th>
+                <th scope="col"><@spring.message "applications.price"/></th>
+                <th scope="col"><@spring.message "applications.action"/></th>
             </tr>
             </thead>
             <tbody>
@@ -33,7 +34,7 @@
                             <td>${application.totalPrice}$</td>
                         <#else>
                             <th scope="row">${application?counter}</th>
-                            <td>Not selected yet</td>
+                            <td><@spring.message "applications.image_not_selected"/></td>
                             <td>${application.requirementCapacity}</td>
                             <td>${application.requirementType}</td>
                             <td>${application.checkInDate}</td>
@@ -45,21 +46,17 @@
                         <td>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-<#--                                    <form action="/room-find" method="post">-->
                                         <a href="/room-find?id=${application.id}" type="submit" class="btn btn-success">
                                             <#if application.status == "WAITING">
-                                                Change
+                                                <@spring.message "applications.action.change"/>
                                             <#else>
-                                                Find
+                                                <@spring.message "applications.action.find"/>
                                             </#if>
                                         </a>
-<#--                                        <input type="hidden" name="id" value="${application.id}">-->
-<#--                                        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
-<#--                                    </form>-->
                                 </div>
                                 <div class="form-group col-md-6">
                                     <form action="/application-remove-admin" method="post">
-                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                        <button type="submit" class="btn btn-danger"><@spring.message "applications.action.remove"/></button>
                                         <input type="hidden" name="id" value="${application.id}">
                                         <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     </form>
