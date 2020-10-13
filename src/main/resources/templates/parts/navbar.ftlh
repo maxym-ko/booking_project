@@ -23,8 +23,8 @@
                     <@spring.message "footer.language"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="languageChanger">
-                    <a class="dropdown-item" href="<@spring.message "main.url"/>${springMacroRequestContext.requestUri}?lang=uk">Українська </a>
-                    <a class="dropdown-item" href="<@spring.message "main.url"/>${springMacroRequestContext.requestUri}?lang=en">English </a>
+                    <a class="dropdown-item" href="?lang=uk">Українська </a>
+                    <a class="dropdown-item" href="?lang=en">English </a>
                 </div>
             </li>
         </ul>
