@@ -14,7 +14,7 @@
                 <form action="/application-create" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md">
-                            <input class="form-control" type="number" min="0" name="<@spring.message "room.add.capacity"/>" placeholder="capacity">
+                            <input class="form-control" type="number" min="0" name="capacity" placeholder="<@spring.message "room.add.capacity"/>">
                         </div>
                         <div class="form-group col-md">
                             <select class="custom-select" name="type" class="form-control">

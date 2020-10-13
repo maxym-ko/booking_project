@@ -5,13 +5,13 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"><@spring.message "login.username"/>: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="text" name="username" placeholder="User name"/>
+                <input class="form-control" type="text" name="username" placeholder="<@spring.message "login.username"/>"/>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"><@spring.message "login.password"/>: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="password" name="password" placeholder="Password"/>
+                <input class="form-control" type="password" name="password" placeholder="<@spring.message "login.password"/>"/>
             </div>
         </div>
         <#if isRegisterForm>

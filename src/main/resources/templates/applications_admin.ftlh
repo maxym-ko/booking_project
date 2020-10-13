@@ -10,7 +10,7 @@
                 <th scope="col">#</th>
                 <th style="width: 20%" scope="col"><@spring.message "applications.image"/></th>
                 <th scope="col"><@spring.message "applications.required_capacity"/></th>
-                <th scope="col"><@spring.message "applications.required_capacity"/></th>
+                <th scope="col"><@spring.message "applications.required_type"/></th>
                 <th scope="col"><@spring.message "applications.check_in"/></th>
                 <th scope="col"><@spring.message "applications.check_out"/></th>
                 <th scope="col"><@spring.message "applications.status"/></th>

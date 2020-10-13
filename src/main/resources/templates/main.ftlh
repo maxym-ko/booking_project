@@ -23,7 +23,7 @@
                             <#if role != "ADMIN">
                                 <p class="card-text"><@spring.message "room.capacity"/>: ${room.capacity}</p>
                                 <p class="card-text"><@spring.message "room.type"/>: <i>${room.type}</i></p>
-                                <p class="card-text"><@spring.message "room.price"/>: <strong>${room.price}$</strong> <@spring.message "room.price.per_night"/></p>
+                                <p class="card-text"><@spring.message "room.price"/>: <strong>${room.price}$</strong> (<@spring.message "room.price.per_night"/>)</p>
                             </#if>
 
                             <#if role == "USER">
