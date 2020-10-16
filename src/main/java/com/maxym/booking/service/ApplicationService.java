@@ -1,6 +1,7 @@
 package com.maxym.booking.service;
 
 import com.maxym.booking.domain.application.Application;
+import com.maxym.booking.domain.application.ApplicationStatus;
 import com.maxym.booking.repos.ApplicationRepo;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,16 @@ public class ApplicationService {
         this.applicationRepo = applicationRepo;
     }
 
-    public void saveApplicant(Application application) {
+    public void saveApplication(Application application) {
         applicationRepo.save(application);
     }
 
     public List<Application> findAllApplications() {
         return applicationRepo.findAll();
+    }
+
+    public List<Application> findAllReservations() {
+        return applicationRepo.findAllByStatusOrStatus(ApplicationStatus.PAYMENT_WAITING, ApplicationStatus.BOOKED);
     }
 
     public Optional<Application> findApplicationById(long id) {

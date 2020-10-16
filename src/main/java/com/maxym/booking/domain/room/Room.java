@@ -1,6 +1,7 @@
 package com.maxym.booking.domain.room;
 
-import com.maxym.booking.domain.reservation.Reservation;
+
+import com.maxym.booking.domain.application.Application;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Room {
     private String imgName;
 
     @OneToMany(mappedBy = "room")
-    private List<Reservation> reservations;
+    private List<Application> reservations;
 
     public long getId() {
         return id;
@@ -73,11 +74,11 @@ public class Room {
         this.imgName = imgName;
     }
 
-    public List<Reservation> getReservations() {
+    public List<Application> getReservations() {
         return reservations;
     }
 
-    public void setReservations(List<Reservation> reservations) {
+    public void setReservations(List<Application> reservations) {
         this.reservations = reservations;
     }
 }

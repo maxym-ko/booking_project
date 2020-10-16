@@ -38,7 +38,8 @@ public class Application {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
     private Room room;
 
     public long getId() {

@@ -77,10 +77,10 @@ public class ApplicationAdminController {
         Bill bill = new Bill(application.getCheckInDate(), application.getCheckOutDate(), room.getPrice());
         application.setBill(bill);
         application.setRoom(room);
-        application.setStatus(ApplicationStatus.WAITING);
+        application.setStatus(ApplicationStatus.ACCEPT_WAITING);
         application.calcTotalPrice();
 
-        applicationService.saveApplicant(application);
+        applicationService.saveApplication(application);
 
         return "redirect:/applications-admin";
     }

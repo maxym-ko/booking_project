@@ -63,12 +63,13 @@
             </thead>
             <tbody>
 
+            <#assign count = 1>
             <#list applications as application>
                 <tr>
-                    <#if application.status != "APPROVED">
+                    <#if application.status == "LOOKING_FOR" || application.status == "ACCEPT_WAITING">
 
+                        <th scope="row">${count}</th>
                         <#if application.room??>
-                            <th scope="row">${application?counter}</th>
                             <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
                             <td>${application.room.capacity}</td>
                             <td>${application.room.type}</td>
@@ -77,7 +78,6 @@
                             <td>${application.status}</td>
                             <td>${application.totalPrice}$</td>
                         <#else>
-                            <th scope="row">${application?counter}</th>
                             <td><@spring.message "applications.image_waiting"/></td>
                             <td>${application.requirementCapacity}</td>
                             <td>${application.requirementType}</td>
@@ -88,7 +88,7 @@
                         </#if>
 
                         <td>
-                            <#if application.status == "WAITING">
+                            <#if application.status == "ACCEPT_WAITING">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <form action="/application-accept" method="post">
@@ -113,6 +113,7 @@
                             </form>
                         </td>
 
+                        <#assign count = count + 1>
                     </#if>
                 </tr>
             </#list>

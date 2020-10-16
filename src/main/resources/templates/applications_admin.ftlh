@@ -20,11 +20,12 @@
             </thead>
             <tbody>
 
+            <#assign count = 1>
             <#list applications as application>
-                <#if application.status != "APPROVED">
+                <#if application.status == "LOOKING_FOR" || application.status == "ACCEPT_WAITING">
                     <tr>
                         <#if application.status != "LOOKING_FOR">
-                            <th scope="row">${application?counter}</th>
+                            <th scope="row">${count}</th>
                             <td><img class="img-thumbnail" src="/img/${application.room.imgName}"></td>
                             <td>${application.requirementCapacity}</td>
                             <td>${application.requirementType}</td>
@@ -47,7 +48,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                         <a href="/room-find?id=${application.id}" type="submit" class="btn btn-success">
-                                            <#if application.status == "WAITING">
+                                            <#if application.status == "ACCEPT_WAITING">
                                                 <@spring.message "applications.action.change"/>
                                             <#else>
                                                 <@spring.message "applications.action.find"/>
@@ -65,6 +66,8 @@
 
                         </td>
                     </tr>
+
+                    <#assign count = count + 1>
                 </#if>
             </#list>
             </tbody>
