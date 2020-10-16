@@ -33,7 +33,7 @@ public class RoomController {
     @Transactional
     @PostMapping("/room-book")
     @PreAuthorize("hasAuthority('USER')")
-    public String bookRoom(@AuthenticationPrincipal User user, @RequestParam("id") long roomId) {
+    public String bookRoom(@AuthenticationPrincipal User user, @RequestParam("id") long roomId, Application application) {
         Optional<Room> roomOptional = roomService.findRoomById(roomId);
         // todo: handle if isn't present
         if (!roomOptional.isPresent()) {
