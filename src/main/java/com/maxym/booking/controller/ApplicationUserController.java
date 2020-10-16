@@ -5,6 +5,7 @@ import com.maxym.booking.domain.application.ApplicationStatus;
 import com.maxym.booking.domain.room.RoomType;
 import com.maxym.booking.domain.user.User;
 import com.maxym.booking.service.ApplicationService;
+import com.maxym.booking.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,14 +24,22 @@ import java.util.Optional;
 @PreAuthorize("hasAuthority('USER')")
 public class ApplicationUserController {
     private final ApplicationService applicationService;
+    private final UserService userService;
 
-    public ApplicationUserController(ApplicationService applicationService) {
+    public ApplicationUserController(ApplicationService applicationService, UserService userService) {
         this.applicationService = applicationService;
+        this.userService = userService;
     }
 
     @GetMapping("/applications")
-    public String showApplications(Model model) {
-        List<Application> applications = applicationService.findAllApplications();
+    public String showApplications(@AuthenticationPrincipal User user, Model model) {
+        Optional<User> userOptional = userService.findUserById(user.getId());
+        if (!userOptional.isPresent()) {
+            return "/error";
+        }
+
+        user = userOptional.get();
+        List<Application> applications = user.getApplications();
         model.addAttribute("applications", applications);
 
         return "applications";

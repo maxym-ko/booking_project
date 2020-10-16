@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Application> applications;
+    private List<Application> applications;
 
     public long getId() {
         return id;
@@ -81,11 +81,11 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public Set<Application> getApplications() {
+    public List<Application> getApplications() {
         return applications;
     }
 
-    public void setApplications(Set<Application> applications) {
+    public void setApplications(List<Application> applications) {
         this.applications = applications;
     }
 }
